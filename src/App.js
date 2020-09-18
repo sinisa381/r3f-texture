@@ -11,9 +11,9 @@ function App() {
   };
   return (
     <>
-      <Box position-y={-20} onClick={handleClick}>
+      {/* <Box position-y={-20} onClick={handleClick}>
         <meshStandardMaterial attach="material" color="red" />
-      </Box>
+      </Box> */}
       <Scene animate={animate} setAnimate={() => set(false)} />
     </>
   );

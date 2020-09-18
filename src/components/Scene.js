@@ -15,7 +15,7 @@ import {
 
 import { VIGNETTE_OUT } from './effects';
 
-const Effects = function Effects({ animate }) {
+const Effects = function Effects({ animate, setAnimate }) {
   const { camera, gl, scene, size } = useThree();
   const composer = new EffectComposer(gl, {
     frameBufferType: THREE.HalfFloatType,
@@ -96,33 +96,36 @@ const Effects = function Effects({ animate }) {
           color="red"
           lastColumn={true}
           delay={600}
+          setAnimate={setAnimate}
         />,
         targetScene4,
       )}
-      <Plane args={[10, 20]} position={[-12, 0]}>
-        <meshStandardMaterial
-          attach="material"
-          map={targetSavePass.renderTarget.texture}
-        />
-      </Plane>
-      <Plane args={[10, 20]} position={[0, 0]}>
-        <meshStandardMaterial
-          attach="material"
-          map={targetSavePass2.renderTarget.texture}
-        />
-      </Plane>
-      <Plane args={[10, 20]} position={[12, 0]}>
-        <meshStandardMaterial
-          attach="material"
-          map={targetSavePass3.renderTarget.texture}
-        />
-      </Plane>
-      <Plane args={[10, 20]} position={[24, 0]}>
-        <meshBasicMaterial
-          attach="material"
-          map={targetSavePass4.renderTarget.texture}
-        />
-      </Plane>
+      <group position-x={-6}>
+        <Plane args={[10, 20]} position={[-12, 0]}>
+          <meshStandardMaterial
+            attach="material"
+            map={targetSavePass.renderTarget.texture}
+          />
+        </Plane>
+        <Plane args={[10, 20]} position={[0, 0]}>
+          <meshStandardMaterial
+            attach="material"
+            map={targetSavePass2.renderTarget.texture}
+          />
+        </Plane>
+        <Plane args={[10, 20]} position={[12, 0]}>
+          <meshStandardMaterial
+            attach="material"
+            map={targetSavePass3.renderTarget.texture}
+          />
+        </Plane>
+        <Plane args={[10, 20]} position={[24, 0]}>
+          <meshBasicMaterial
+            attach="material"
+            map={targetSavePass4.renderTarget.texture}
+          />
+        </Plane>
+      </group>
     </>
   );
 };
