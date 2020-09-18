@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import * as THREE from 'three';
+import React, { useState, useCallback } from 'react';
+import { Html } from 'drei';
+import { useThree, useFrame, createPortal } from 'react-three-fiber';
+import { useTextureLoader, Box } from 'drei';
+import Scene from './components/Scene';
 function App() {
+  const [animate, set] = useState(false);
+  const handleClick = () => {
+    set((prev) => !prev);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Box position-y={-20} onClick={handleClick}>
+        <meshStandardMaterial attach="material" color="red" />
+      </Box>
+      <Scene animate={animate} setAnimate={() => set(false)} />
+    </>
   );
 }
 
