@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { Html } from 'drei';
 import { Canvas } from 'react-three-fiber';
 
 ReactDOM.render(
@@ -24,7 +25,7 @@ ReactDOM.render(
       }}
     >
       <ambientLight />
-      <Suspense fallback={null}>
+      <Suspense fallback={<Html>jbg</Html>}>
         <App />
       </Suspense>
     </Canvas>
