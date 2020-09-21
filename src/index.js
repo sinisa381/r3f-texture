@@ -9,15 +9,15 @@ ReactDOM.render(
     <Canvas
       shadowMap
       concurrent
+      pixelRatio={1}
       colorManagement
-      camera={{ position: [0, 0, 35] }}
+      camera={{ position: [0, 0, 45] }}
       gl={{
         powerPreference: 'high-performance',
         antialias: false,
         stencil: false,
         depth: false,
       }}
-      // onCreated={({ gl, camera }) => camera.lookAt(0, 0, 0)}
       onCreated={({ gl, camera }) => {
         gl.setClearColor('0x242424');
         camera.lookAt(0, 0, 0);

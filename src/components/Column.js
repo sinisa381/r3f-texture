@@ -59,11 +59,7 @@ export default function Surface({ blur, color, delay = 0, animate }) {
   return (
     <>
       <ambientLight />
-      <a.group
-        onClick={handleClick}
-        position-y={y}
-        scale={[scale, scale, scale]}
-      >
+      <a.group position-y={y} scale={[scale, scale, scale]}>
         {positions.map((p, i) => (
           <mesh position-y={p} key={i}>
             <planeBufferGeometry attach="geometry" args={[5, 5]} />

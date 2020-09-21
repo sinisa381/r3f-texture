@@ -21,17 +21,26 @@ const Effects = function Effects({ animate, setAnimate }) {
     frameBufferType: THREE.HalfFloatType,
   });
 
-  let amount = 3;
-  const [targetScene2, targetScene3, targetScene4] = useMemo(() => {
+  let amount = 4;
+  const [
+    targetScene1,
+    targetScene2,
+    targetScene3,
+    targetScene4,
+  ] = useMemo(() => {
     return [...Array.from({ length: amount }).map(() => new THREE.Scene())];
   }, [amount]);
-  const [targetSavePass2, targetSavePass3, targetSavePass4] = useMemo(() => {
+  const [
+    targetSavePass1,
+    targetSavePass2,
+    targetSavePass3,
+    targetSavePass4,
+  ] = useMemo(() => {
     return [...Array.from({ length: amount }).map(() => new SavePass())];
   }, [amount]);
-  const [blur2, blur3, blur4] = useMemo(() => {
+  const [blur1, blur2, blur3, blur4] = useMemo(() => {
     return [...Array.from({ length: amount }).map(() => new BlurPass())];
   }, [amount]);
-  const targetScene = new THREE.Scene();
   const targetCamera = new THREE.PerspectiveCamera(
     75,
     size.width / 4 / size.height,
@@ -39,22 +48,20 @@ const Effects = function Effects({ animate, setAnimate }) {
     1000,
   );
   targetCamera.position.z = 10;
-  const targetSavePass = new SavePass();
-  const blur = new BlurPass();
   const renderPass = new RenderPass(scene, camera);
-  const targetRenderPass = new RenderPass(targetScene, targetCamera);
+  const targetRenderPass1 = new RenderPass(targetScene1, targetCamera);
   const targetRenderPass2 = new RenderPass(targetScene2, targetCamera);
   const targetRenderPass3 = new RenderPass(targetScene3, targetCamera);
-  const targetRenderPass4 = new RenderPass(targetScene3, targetCamera);
+  const targetRenderPass4 = new RenderPass(targetScene4, targetCamera);
   const smaa = useLoader(SMAAImageLoader);
   const SMAA = new SMAAEffect(...smaa);
   SMAA.colorEdgesMaterial.setEdgeDetectionThreshold(0.1);
 
   const effectPass = new EffectPass(camera, SMAA, VIGNETTE_OUT);
 
-  composer.addPass(targetRenderPass);
-  composer.addPass(blur);
-  composer.addPass(targetSavePass);
+  composer.addPass(targetRenderPass1);
+  composer.addPass(blur1);
+  composer.addPass(targetSavePass1);
   composer.addPass(targetRenderPass2);
   composer.addPass(blur2);
   composer.addPass(targetSavePass2);
@@ -78,15 +85,15 @@ const Effects = function Effects({ animate, setAnimate }) {
   return (
     <>
       {createPortal(
-        <Column animate={animate} blur={blur} color="green" delay={0} />,
-        targetScene,
+        <Column animate={animate} blur={blur1} color="green" delay={0} />,
+        targetScene1,
       )}
       {createPortal(
         <Column animate={animate} blur={blur2} color="red" delay={200} />,
         targetScene2,
       )}
       {createPortal(
-        <Column animate={animate} blur={blur3} color="red" delay={400} />,
+        <Column animate={animate} blur={blur3} color="yellow" delay={400} />,
         targetScene3,
       )}
       {createPortal(
@@ -94,17 +101,17 @@ const Effects = function Effects({ animate, setAnimate }) {
           animate={animate}
           blur={blur4}
           color="red"
-          lastColumn={true}
           delay={600}
-          setAnimate={setAnimate}
+          // lastColumn={true}
+          // setAnimate={setAnimate}
         />,
         targetScene4,
       )}
       <group position-x={-6}>
-        <Plane args={[10, 20]} position={[-12, 0]}>
+        <Plane args={[10, 20]} position={[-10.5, 0]}>
           <meshStandardMaterial
             attach="material"
-            map={targetSavePass.renderTarget.texture}
+            map={targetSavePass1.renderTarget.texture}
           />
         </Plane>
         <Plane args={[10, 20]} position={[0, 0]}>
@@ -113,13 +120,13 @@ const Effects = function Effects({ animate, setAnimate }) {
             map={targetSavePass2.renderTarget.texture}
           />
         </Plane>
-        <Plane args={[10, 20]} position={[12, 0]}>
+        <Plane args={[10, 20]} position={[10.5, 0]}>
           <meshStandardMaterial
             attach="material"
             map={targetSavePass3.renderTarget.texture}
           />
         </Plane>
-        <Plane args={[10, 20]} position={[24, 0]}>
+        <Plane args={[10, 20]} position={[21, 0]}>
           <meshBasicMaterial
             attach="material"
             map={targetSavePass4.renderTarget.texture}
