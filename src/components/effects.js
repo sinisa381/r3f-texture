@@ -1,11 +1,10 @@
-import { useLoader } from 'react-three-fiber';
 import {
   VignetteEffect,
   BloomEffect,
-  SMAAImageLoader,
+  // SMAAImageLoader,
   BlendFunction,
   NoiseEffect,
-  SMAAEffect,
+  // SMAAEffect,
   KernelSize,
 } from 'postprocessing';
 

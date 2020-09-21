@@ -1,8 +1,6 @@
-import * as THREE from 'three';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Html } from 'drei';
-import { useThree, useFrame, createPortal } from 'react-three-fiber';
-import { useTextureLoader, Box, Sphere } from 'drei';
+import { Sphere } from 'drei';
 import Scene from './components/Scene';
 function App() {
   const [animate, set] = useState(false);
@@ -14,6 +12,7 @@ function App() {
       <Sphere
         scale={[3, 3, 3]}
         args={[1, 70, 70]}
+        gg
         position-y={-20}
         onClick={handleClick}
       >
